@@ -3,28 +3,52 @@
 const express = require('express');
 const router = express.Router();
 
-const profiles = [
-  {
-    "id": 1,
-    "name": "A Martinez",
-    "description": "Adolph Larrue Martinez III.",
-    "mbti": "ISFJ",
-    "enneagram": "9w3",
-    "variant": "sp/so",
-    "tritype": 725,
-    "socionics": "SEE",
-    "sloan": "RCOEN",
-    "psyche": "FEVL",
-    "image": "https://soulverse.boo.world/images/1.png",
-  }
-];
-
 module.exports = function() {
+  router.get('/:userIdentifier(\\d+)', async function(request, response, next) {
+    const { userIdentifier } = request.params;
 
-  router.get('/*', function(req, res, next) {
-    res.render('profile_template', {
-      profile: profiles[0],
+    await request.app.get('databaseConnection').connect();
+    const database = request.app.get('databaseConnection').db('');
+    const profiles = database.collection('profiles');
+    const profile = await profiles.findOne({ identifier: Number(userIdentifier) });
+
+    if (profile === null) {
+      response.status(404).send("Sorry, the profile that you're looking for can't be found.")
+    }
+
+    response.render('profile_template', {
+      profile: profile,
     });
+  });
+
+  router.post('/', express.json(), async (request, response) => {
+    const { name, description, mbti, enneagram, variant, tritype, socionics, sloan, psyche } = request.body;
+
+    if ( name && description && mbti &&  enneagram &&  variant && tritype && socionics && sloan && psyche ) {
+      await request.app.get('databaseConnection').connect();
+      const database = request.app.get('databaseConnection').db('');
+      const profiles = database.collection('profiles');
+      const profile = {
+        identifier: await profiles.estimatedDocumentCount() + 1,
+        name: name,
+        description: description,
+        mbti: mbti,
+        enneagram: enneagram,
+        variant: variant,
+        tritype: tritype,
+        socionics: socionics,
+        sloan: sloan,
+        psyche: psyche,
+        image: "https://soulverse.boo.world/images/1.png"
+      };
+
+      profiles.insertOne(profile);
+      response.json(profile)
+    } else {
+      response.status(422).json({
+        message: 'Please validate the profile data first.'
+      });
+    }
   });
 
   return router;
