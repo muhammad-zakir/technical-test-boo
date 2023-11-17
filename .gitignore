@@ -1,0 +1,11 @@
+# MacOS's attributes file
+.DS_Store
+
+# Environment variables file
+.env
+
+# Dependencies
+node_modules
+
+# Debug log from npm
+npm-debug.log
