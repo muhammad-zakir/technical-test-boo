@@ -17,7 +17,7 @@ MongoMemoryServer.create()
       const profiles = database.collection('profiles');
       await profiles.insertMany([
         {
-          "identifier": 1,
+          "_id": 1,
           "name": "A Martinez",
           "description": "Adolph Larrue Martinez III.",
           "mbti": "ISFJ",
@@ -30,7 +30,7 @@ MongoMemoryServer.create()
           "image": "https://soulverse.boo.world/images/1.png",
         },
         {
-          "identifier": 2,
+          "_id": 2,
           "name": "Superion Blowpipe",
           "description": "An Autobot from Earth, with an Fe- blood type.",
           "mbti": "ISTJ",
@@ -43,7 +43,7 @@ MongoMemoryServer.create()
           "image": "https://soulverse.boo.world/images/1.png",
         },
         {
-          "identifier": 3,
+          "_id": 3,
           "name": "Rumble Ramjet",
           "description": "An Autobot from Cybertron, with an Au- blood type.",
           "mbti": "INFP",

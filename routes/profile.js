@@ -10,7 +10,7 @@ module.exports = function() {
     await request.app.get('databaseConnection').connect();
     const database = request.app.get('databaseConnection').db('');
     const profiles = database.collection('profiles');
-    const profile = await profiles.findOne({ identifier: Number(userIdentifier) });
+    const profile = await profiles.findOne({ _id: Number(userIdentifier) });
 
     if (profile === null) {
       response.status(404).send("Sorry, the profile that you're looking for can't be found.")
@@ -29,7 +29,7 @@ module.exports = function() {
       const database = request.app.get('databaseConnection').db('');
       const profiles = database.collection('profiles');
       const profile = {
-        identifier: await profiles.estimatedDocumentCount() + 1,
+        _id: await profiles.estimatedDocumentCount() + 1,
         name: name,
         description: description,
         mbti: mbti,
