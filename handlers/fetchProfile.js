@@ -7,10 +7,8 @@ exports.fetchProfileHandler = async function (request, response) {
     const profile = await profiles.findOne({ _id: Number(userIdentifier) });
 
     if (profile === null) {
-      response.status(404).send("Sorry, the profile that you're looking for can't be found.")
+        response.status(404).send("Sorry, the profile that you're looking for can't be found.").end()
+    } else {
+        response.render('profile_template', { profile: profile });
     }
-
-    response.render('profile_template', {
-    profile: profile,
-  });
 };
