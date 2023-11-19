@@ -3,6 +3,22 @@
 const express = require('express');
 const router = express.Router();
 
+function isProfileBodyValid(requestBody) {
+  const {
+    name,
+    description,
+    mbti,
+    enneagram,
+    variant,
+    tritype,
+    socionics,
+    sloan,
+    psyche
+  } = requestBody;
+
+  return name && description && mbti &&  enneagram &&  variant && tritype && socionics && sloan && psyche;
+}
+
 module.exports = function() {
   router.get('/:userIdentifier(\\d+)', async function(request, response, next) {
     const { userIdentifier } = request.params;
@@ -22,12 +38,14 @@ module.exports = function() {
   });
 
   router.post('/', express.json(), async (request, response) => {
-    const { name, description, mbti, enneagram, variant, tritype, socionics, sloan, psyche } = request.body;
+    if (isProfileBodyValid(request.body) ) {
+      const { name, description, mbti, enneagram, variant, tritype, socionics, sloan, psyche } = request.body;
 
-    if ( name && description && mbti &&  enneagram &&  variant && tritype && socionics && sloan && psyche ) {
       await request.app.get('databaseConnection').connect();
       const database = request.app.get('databaseConnection').db('');
+
       const profiles = database.collection('profiles');
+
       const profile = {
         _id: await profiles.estimatedDocumentCount() + 1,
         name: name,
