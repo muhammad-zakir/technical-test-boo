@@ -19,6 +19,7 @@ MongoMemoryServer.create()
 
       // routes
       application.use('/', require('./routes/profile')());
+      application.use('/comment', require('./routes/comment')());
 
       // start server
       const server = application.listen(port);
