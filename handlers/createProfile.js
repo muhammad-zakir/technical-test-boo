@@ -20,8 +20,8 @@ exports.createProfileHandler = async function (request, response) {
       psyche: psyche,
       image: "https://soulverse.boo.world/images/1.png"
     };
-
     profiles.insertOne(profile);
+
     response.json(profile)
   } else {
     response.status(422).json({
