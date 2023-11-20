@@ -10,7 +10,7 @@ module.exports = function() {
     response.redirect('/1');
   });
 
-  router.get('/:userIdentifier(\\d+)', async function(request, response, next) {
+  router.get('/:profileIdentifier(\\d+)', async function(request, response, next) {
     await fetchProfileHandler(request, response);
   });
 
