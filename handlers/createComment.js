@@ -3,9 +3,7 @@ const { profileIdentifierValidator } = require('../helpers/profileIdentifierVali
 exports.createCommentHandler = async function (request, response) {
   if (isCommentBodyValid(request.body)) {
     const { comment, profileIdentifier, voterIdentifier, votes } = request.body;
-
-    await request.app.get('databaseConnection').connect();
-    const database = request.app.get('databaseConnection').db('');
+    const database = request.app.get('database');
 
     if (await profileIdentifierValidator(database, profileIdentifier) && await profileIdentifierValidator(database, voterIdentifier)) {
       const comments = database.collection('comments');

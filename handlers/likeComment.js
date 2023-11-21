@@ -5,9 +5,7 @@ const { profileIdentifierValidator } = require('../helpers/profileIdentifierVali
 exports.likeCommentHandler = async function (request, response) {
   if (isLikeBodyValid(request.body) ) {
     const { commentIdentifier, profileIdentifier } = request.body;
-
-    await request.app.get('databaseConnection').connect();
-    const database = request.app.get('databaseConnection').db('');
+    const database = request.app.get('database');
 
     if (await commentIdentifierValidator(database, commentIdentifier) === false) {
       response.status(404).json({

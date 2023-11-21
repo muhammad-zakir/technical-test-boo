@@ -1,8 +1,6 @@
 exports.fetchProfileHandler = async function (request, response) {
     const { profileIdentifier } = request.params;
-
-    await request.app.get('databaseConnection').connect();
-    const database = request.app.get('databaseConnection').db('');
+    const database = request.app.get('database');
     const profiles = database.collection('profiles');
     const profile = await profiles.findOne({ _id: Number(profileIdentifier) });
 

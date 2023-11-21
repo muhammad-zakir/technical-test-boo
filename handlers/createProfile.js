@@ -1,9 +1,7 @@
 exports.createProfileHandler = async function (request, response) {
   if (isProfileBodyValid(request.body) ) {
     const { name, description, mbti, enneagram, variant, tritype, socionics, sloan, psyche } = request.body;
-
-    await request.app.get('databaseConnection').connect();
-    const database = request.app.get('databaseConnection').db('');
+    const database = request.app.get('database');
 
     const profiles = database.collection('profiles');
 

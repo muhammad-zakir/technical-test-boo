@@ -3,9 +3,7 @@ const { profileIdentifierValidator } = require('../helpers/profileIdentifierVali
 exports.fetchCommentsHandler = async function (request, response) {
   const { profileIdentifier } = request.params;
   const { filter, sort } = request.query;
-
-  await request.app.get('databaseConnection').connect();
-  const database = request.app.get('databaseConnection').db('');
+  const database = request.app.get('database');
   
   if (await profileIdentifierValidator(database, profileIdentifier)) {
     const comments = database.collection('comments');
