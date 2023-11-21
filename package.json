@@ -1,18 +1,19 @@
 {
-  "name": "server",
+  "name": "technical-test-boo",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "description": "Techical Test for Boo",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "mongodb": "^6.3.0",
     "mongodb-memory-server": "^9.1.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3"
   }
 }
