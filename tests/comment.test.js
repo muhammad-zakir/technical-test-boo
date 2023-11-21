@@ -306,6 +306,12 @@ describe('Comment Test Suite', () => {
     expect(response.body.length).toStrictEqual(6);
   });
 
+  test('Test the GET method with a filtered with an invalid filter', async () => {
+    const response = await request(application).get('/comment/1').query({ filter: 'nothing' });
+    expect(response.statusCode).toBe(200);
+    expect(response.body.length).toStrictEqual(8);
+  });
+
   test('Test the GET method sorted by most likes', async () => {
     const response = await request(application).get('/comment/1').query({ sort: 'best' });
     expect(response.statusCode).toBe(200);
