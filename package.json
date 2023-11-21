@@ -4,7 +4,8 @@
   "description": "Techical Test for Boo",
   "main": "server.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test-with-coverage": "jest --coverage"
   },
   "dependencies": {
     "ejs": "^3.1.6",
