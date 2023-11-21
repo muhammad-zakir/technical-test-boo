@@ -20,7 +20,7 @@ exports.createProfileHandler = async function (request, response) {
     };
     profiles.insertOne(profile);
 
-    response.json(profile);
+    response.status(201).json(profile);
   } else {
     response.status(422).json({
       message: 'Please validate the profile data first.'

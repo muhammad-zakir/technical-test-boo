@@ -19,7 +19,7 @@ exports.createCommentHandler = async function (request, response) {
       };
       comments.insertOne(commentToInsert);
 
-      response.json(commentToInsert); 
+      response.status(201).json(commentToInsert); 
     } else {
       response.status(404).json({
         message: 'Invalid profile identifier'
