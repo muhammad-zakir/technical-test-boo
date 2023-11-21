@@ -4,6 +4,9 @@
 # Environment variables file
 .env
 
+# Code coverage's directory
+coverage
+
 # Dependencies
 node_modules
 
