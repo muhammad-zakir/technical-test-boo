@@ -1,6 +1,6 @@
 {
   "name": "technical-test-boo",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Techical Test for Boo",
   "main": "server.js",
   "scripts": {
