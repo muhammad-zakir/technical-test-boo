@@ -1,35 +1,4 @@
-'use strict';
-
-const { MongoClient } = require('mongodb');
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const express = require('express');
-const application = express();
-const port =  process.env.PORT || 3000;
-
-MongoMemoryServer.create()
-    .then(function(mongoServer)  {
-      // set the database's connection uri
-      application.set('databaseConnection', new MongoClient(mongoServer.getUri()));
-
-      // seed the initial profiles
-      seedInitialProfiles(application).then();
-
-      // set the view engine to ejs
-      application.set('view engine', 'ejs');
-
-      // routes
-      application.use('/', require('./routes/profile')());
-      application.use('/comment', require('./routes/comment')());
-
-      // start server
-      const server = application.listen(port);
-      console.log('Express started. Listening on %s', port);
-    })
-    .catch(error => { console.log(error) });
-
-async function seedInitialProfiles(application) {
-  await application.get('databaseConnection').connect();
-  const database = application.get('databaseConnection').db('');
+exports.initialProfilesSeeder = async function seedInitialProfiles(database) {
   const profiles = database.collection('profiles');
   await profiles.insertMany([
     {
